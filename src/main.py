@@ -23,7 +23,6 @@ class SuccessResponse(BaseModel):
     data: Optional[dict] = None
 
 class UserCreate(BaseModel):
-    challenge: str
     input: str
 
 @app.exception_handler(HTTPException)
@@ -43,14 +42,8 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
 
 @app.post("/nlp3/", response_model=SuccessResponse)
 async def create_user(user_data: UserCreate):
-    challenge = user_data.challenge
     input = user_data.input
 
-    if challenge != "nlp3":
-        return JSONResponse(
-            status_code=422,
-            content={"message": "I'm not doing that challenge, sorry!", "details": None}
-        )
     
     if len(input.split())< 500 or len(input.split()) > 1500:
         return JSONResponse(
