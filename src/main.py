@@ -40,7 +40,7 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
         content={"message": "Validation error", "details": error_details}
     )
 
-@app.post("/nlp3/", response_model=SuccessResponse)
+@app.post("/mcq-generator/", response_model=SuccessResponse)
 async def create_user(user_data: UserCreate):
     input = user_data.input
 
